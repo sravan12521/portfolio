@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sravan Kumar Veerannagari — AI/ML Engineer</title>
+<meta name="description" content="AI/ML Engineer building production RAG systems, agentic LLM workflows, and fine-tuned domain models.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Space+Mono:wght@400;700&family=Sora:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080a;--bg2:#0d0f13;--ink:#f4f3ee;--muted:#8b8f98;
+  --line:#1d2026;--acc:#5ef2c9;--acc2:#a78bff;
+  --serif:'Fraunces',serif;--sans:'Sora',sans-serif;--mono:'Space Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+a,button{cursor:none}
+@media(hover:none){body,a,button{cursor:auto}.cursor,.cursor-dot{display:none!important}}
+
+.cursor{position:fixed;top:0;left:0;width:38px;height:38px;border:1px solid var(--acc);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-color .25s;mix-blend-mode:difference}
+.cursor-dot{position:fixed;top:0;left:0;width:5px;height:5px;background:var(--acc);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor.grow{width:72px;height:72px;background:rgba(94,242,201,.12);border-color:transparent}
+.cursor.grab{width:60px;height:60px}
+.cursor.grab::after{content:"DRAG";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--acc)}
+
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(1000px 700px at 75% -5%,rgba(94,242,201,.08),transparent 60%),radial-gradient(800px 600px at -5% 100%,rgba(167,139,255,.07),transparent 55%)}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{position:relative;z-index:3;max-width:1100px;margin:0 auto;padding:0 30px}
+
+#scene{position:fixed;inset:0;z-index:2;pointer-events:none}
+header,section{position:relative;z-index:3}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:22px 30px;mix-blend-mode:difference}
+nav .logo{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+nav .links{display:flex;gap:28px}
+nav a{color:#fff;text-decoration:none;font-size:13px;font-family:var(--mono);letter-spacing:.06em;opacity:.8;transition:opacity .2s}
+nav a:hover{opacity:1}
+@media(max-width:640px){nav .links{display:none}}
+
+header{min-height:100vh;display:flex;align-items:center}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--acc);margin-bottom:28px;opacity:0;animation:rise .8s .1s forwards}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,11vw,9rem);line-height:.9;letter-spacing:-.025em;margin-bottom:18px}
+h1 .l{display:block;opacity:0;transform:translateY(50px);animation:rise 1s forwards}
+h1 .l:nth-child(1){animation-delay:.15s}
+h1 .l:nth-child(2){animation-delay:.3s;font-style:italic;background:linear-gradient(110deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.rotator{font-family:var(--mono);font-size:clamp(.8rem,1.6vw,1rem);letter-spacing:.12em;color:var(--acc);margin-bottom:26px;min-height:1.4em;opacity:0;animation:rise .8s .45s forwards}
+.rotator .cw{border-right:2px solid var(--acc);padding-right:3px}
+.lead{max-width:540px;font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);opacity:0;animation:rise .9s .55s forwards}
+.lead b{color:var(--ink);font-weight:500}
+.hero-meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px;opacity:0;animation:rise .9s .7s forwards}
+.chip{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:100px;padding:9px 17px;color:var(--muted);background:rgba(7,8,10,.5);backdrop-filter:blur(6px)}
+.hint{position:absolute;bottom:36px;left:30px;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--muted);opacity:0;animation:rise 1s 1s forwards}
+.hint.r{left:auto;right:30px}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+
+/* live stat counters */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin:0 0 0}
+@media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{padding:26px 0;border-top:1px solid var(--line)}
+.stat .n{font-family:var(--serif);font-size:clamp(2rem,5vw,3.4rem);line-height:1;background:linear-gradient(110deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat .l{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+
+section{padding:120px 0}
+.shead{display:flex;align-items:baseline;gap:18px;margin-bottom:64px}
+.shead .num{font-family:var(--mono);font-size:13px;color:var(--acc)}
+.shead h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.01em}
+.divider{height:1px;background:var(--line)}
+
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:start}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:40px}}
+.about-grid p{font-size:1.1rem;color:#d6d3c8;margin-bottom:22px}
+.about-grid p b{color:var(--acc);font-weight:500}
+.facts{border-left:1px solid var(--line);padding-left:28px}
+.fact{margin-bottom:26px}
+.fact .k{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.fact .v{font-size:1rem}
+
+.exp{display:grid;grid-template-columns:210px 1fr;gap:42px;padding:38px 0;border-top:1px solid var(--line);transition:.35s}
+.exp:hover{padding-left:10px;background:linear-gradient(90deg,rgba(94,242,201,.04),transparent)}
+.exp:last-child{border-bottom:1px solid var(--line)}
+@media(max-width:768px){.exp{grid-template-columns:1fr;gap:14px}}
+.exp .when{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.exp .org{font-size:.95rem;color:var(--acc);margin-top:6px}
+.exp h3{font-family:var(--serif);font-weight:400;font-size:1.55rem;margin-bottom:14px}
+.exp ul{list-style:none}
+.exp li{position:relative;padding-left:22px;margin-bottom:10px;color:#cfccc0;font-size:.98rem}
+.exp li::before{content:"→";position:absolute;left:0;color:var(--acc)}
+
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:768px){.pgrid{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:16px;padding:34px;background:linear-gradient(160deg,var(--bg2),transparent);position:relative;overflow:hidden;transition:transform .15s ease-out,border-color .4s;transform-style:preserve-3d;will-change:transform}
+.card::after{content:"";position:absolute;inset:0;background:radial-gradient(400px at var(--mx,50%) var(--my,50%),rgba(94,242,201,.12),transparent 60%);opacity:0;transition:.4s;pointer-events:none}
+.card:hover{border-color:var(--acc)}
+.card:hover::after{opacity:1}
+.card>*{transform:translateZ(40px)}
+.card .yr{font-family:var(--mono);font-size:12px;color:var(--acc)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:1.55rem;margin:10px 0 14px;line-height:1.2}
+.card p{color:var(--muted);font-size:.96rem;margin-bottom:18px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);padding:4px 10px;border-radius:6px;transition:.25s}
+.card:hover .tag{border-color:var(--acc);color:var(--ink)}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px}
+.skblock .k{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+.skblock .list{display:flex;flex-wrap:wrap;gap:8px}
+.skblock .list span{font-size:.9rem;color:#cfccc0;border-bottom:1px solid var(--line);padding-bottom:2px;transition:.25s}
+.skblock .list span:hover{color:var(--acc);border-color:var(--acc);transform:translateY(-2px)}
+
+.contact{text-align:center;padding:150px 0}
+.contact .big{font-family:var(--serif);font-weight:400;font-style:italic;font-size:clamp(2.4rem,8vw,6rem);line-height:.98;margin-bottom:44px}
+.contact .big a{text-decoration:none;background:linear-gradient(110deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;border-bottom:2px solid var(--acc)}
+.magnet{display:inline-block;will-change:transform}
+.clinks{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;font-family:var(--mono);font-size:13px}
+.clinks a{color:var(--muted);text-decoration:none;letter-spacing:.06em;transition:.2s}
+.clinks a:hover{color:var(--ink)}
+footer{padding:42px 0;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--line)}
+
+.reveal{opacity:0;transform:translateY(34px);transition:.9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* progress + morph button */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.morph{position:fixed;bottom:26px;right:26px;z-index:55;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--acc);background:rgba(7,8,10,.6);border:1px solid var(--line);border-radius:100px;padding:11px 18px;backdrop-filter:blur(8px);transition:.25s}
+.morph:hover{border-color:var(--acc);background:rgba(94,242,201,.1)}
+@media(max-width:640px){.morph{bottom:18px;right:18px}}
+</style>
+</head>
+<body>
+<div class="cursor"></div><div class="cursor-dot"></div>
+<div class="progress" id="progress"></div>
+<div class="grain"></div>
+<canvas id="scene"></canvas>
+<button class="morph" id="morph">⟐ morph shape</button>
+
+<nav>
+  <div class="logo">SKV</div>
+  <div class="links"><a href="#about">about</a><a href="#work">work</a><a href="#projects">projects</a><a href="#contact">contact</a></div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">AI / ML Engineer · Omaha, NE</div>
+    <h1><span class="l">Sravan Kumar</span><span class="l">Veerannagari</span></h1>
+    <div class="rotator"><span class="cw" id="cw"></span></div>
+    <p class="lead">I build and deploy <b>production AI systems</b> — RAG pipelines, agentic LLM workflows, fine-tuned domain models, and computer vision.</p>
+    <div class="hero-meta">
+      <span class="chip">M.S. Data Science · May 2026</span>
+      <span class="chip">Patent No. 202341076487</span>
+      <span class="chip">$5,000 GRACA Grant</span>
+    </div>
+  </div>
+  <div class="hint">scroll ↓</div>
+  <div class="hint r">drag to spin · click to morph ↻</div>
+</header>
+
+<div class="wrap">
+
+<section id="about">
+  <div class="shead reveal"><span class="num">01</span><h2>About</h2></div>
+  <div class="about-grid">
+    <div class="reveal">
+      <p>AI/ML Engineer with <b>2+ years</b> building production-grade intelligent systems across healthcare, public safety, and autonomous systems.</p>
+      <p>I work end-to-end — designing data pipelines, developing and fine-tuning models, evaluating rigorously, and shipping to real users. Notable work spans a government-deployed RAG system, a clinical NLP pipeline grounded in SNOMED CT, and a patented autonomous drone fleet for search-and-rescue.</p>
+      <p>I thrive at the intersection of <b>research and real-world impact</b>.</p>
+    </div>
+    <div class="facts reveal">
+      <div class="fact"><div class="k">Location</div><div class="v">Omaha, Nebraska</div></div>
+      <div class="fact"><div class="k">Education</div><div class="v">M.S. Data Science, UNO</div></div>
+      <div class="fact"><div class="k">Availability</div><div class="v">Full-time · May 2026</div></div>
+      <div class="fact"><div class="k">Focus</div><div class="v">LLMs · RAG · Agents · NLP · CV</div></div>
+    </div>
+  </div>
+  <div class="stats reveal" id="stats" style="margin-top:60px">
+    <div class="stat"><div class="n" data-to="2" data-suffix="+">0</div><div class="l">Years experience</div></div>
+    <div class="stat"><div class="n" data-to="90" data-suffix="%">0</div><div class="l">Retrieval precision</div></div>
+    <div class="stat"><div class="n" data-to="10" data-suffix="K+">0</div><div class="l">Pages processed</div></div>
+    <div class="stat"><div class="n" data-to="1" data-prefix="" data-suffix="">0</div><div class="l">Patent filed</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="work">
+  <div class="shead reveal"><span class="num">02</span><h2>Experience</h2></div>
+  <div class="exp reveal">
+    <div><div class="when">Aug 2025 — May 2026</div><div class="org">University of Nebraska at Omaha</div></div>
+    <div><h3>AI/ML Engineer — Graduate Research Assistant</h3>
+      <ul>
+        <li>Architected and deployed a production RAG system for the Sarpy County Sheriff's Office using FAISS, sentence-transformer embeddings, and LLM generation — cutting lookup from minutes to seconds.</li>
+        <li>Built an end-to-end pipeline over 10,000+ pages of legal documents: PDF/OCR extraction, semantic chunking, embedding, indexing.</li>
+        <li>Achieved ~90% retrieval precision across 20+ validation scenarios; secured a $5,000 GRACA grant.</li>
+      </ul></div>
+  </div>
+  <div class="exp reveal">
+    <div><div class="when">Aug 2024 — May 2025</div><div class="org">University of Nebraska at Omaha</div></div>
+    <div><h3>ML Research Engineer — Clinical NLP</h3>
+      <ul>
+        <li>Fine-tuned LLMs on the SNOMED CT clinical ontology with Axolotl, building a physician-facing QA system grounded in standardized medical knowledge.</li>
+        <li>Designed evaluation pipelines for precision, recall, and answer relevance across 200+ clinical QA cases; reduced hallucination via ontology grounding.</li>
+      </ul></div>
+  </div>
+  <div class="exp reveal">
+    <div><div class="when">Jun 2023 — May 2024</div><div class="org">MLR Institute of Technology</div></div>
+    <div><h3>AI/ML Research Engineer — Intern</h3>
+      <ul>
+        <li>Led development of an autonomous drone system: YOLOv8 real-time detection (86–91% confidence), DRL path planning with CNN/RNN, multi-sensor fusion.</li>
+        <li>Trained deep learning models in PyTorch; co-authored an IEEE-format paper and contributed to filing patent No. 202341076487.</li>
+      </ul></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <div class="shead reveal"><span class="num">03</span><h2>Selected Projects</h2></div>
+  <div class="pgrid">
+    <div class="card reveal"><div class="yr">2026</div><h3>Snowflake Cortex AI Agent</h3><p>Enterprise AI agent combining Cortex Analyst (SQL over structured data) and Cortex Search (RAG over a PubMed corpus) with LLM-based tool routing for cited, auditable responses.</p><div class="tags"><span class="tag">Snowflake Cortex</span><span class="tag">Agents</span><span class="tag">RAG</span><span class="tag">SQL</span></div></div>
+    <div class="card reveal"><div class="yr">2025</div><h3>Sarpy County RAG System</h3><p>Government-deployed retrieval over 10,000+ pages of legal documents with a Streamlit interface and ~90% precision. GRACA grant funded.</p><div class="tags"><span class="tag">FAISS</span><span class="tag">Streamlit</span><span class="tag">Embeddings</span></div></div>
+    <div class="card reveal"><div class="yr">2024</div><h3>Autonomous Drone Fleet (Patent)</h3><p>AI drone fleet for missing-child search-and-rescue using YOLOv8 detection, deep RL path planning, and multi-sensor fusion. Patent No. 202341076487.</p><div class="tags"><span class="tag">YOLOv8</span><span class="tag">DRL</span><span class="tag">PyTorch</span></div></div>
+    <div class="card reveal"><div class="yr">2023</div><h3>Personalized Medical AI Assistant</h3><p>End-to-end AI app pairing ML risk-classification (~87% AUC) with a conversational LLM interface and REST API — ingestion to UI.</p><div class="tags"><span class="tag">ML</span><span class="tag">LLM</span><span class="tag">REST API</span><span class="tag">Full-stack</span></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="shead reveal"><span class="num">04</span><h2>Toolkit</h2></div>
+  <div class="skills">
+    <div class="skblock reveal"><div class="k">Languages</div><div class="list"><span>Python</span><span>SQL</span><span>Java</span><span>JavaScript</span><span>C</span></div></div>
+    <div class="skblock reveal"><div class="k">AI / ML</div><div class="list"><span>LLMs</span><span>RAG</span><span>AI Agents</span><span>Fine-Tuning</span><span>Embeddings</span><span>NLP</span><span>Computer Vision</span><span>Deep Learning</span></div></div>
+    <div class="skblock reveal"><div class="k">LLM Stack</div><div class="list"><span>OpenAI</span><span>Claude</span><span>Gemini</span><span>Hugging Face</span><span>LangChain</span><span>Axolotl</span><span>Snowflake Cortex</span><span>FAISS</span></div></div>
+    <div class="skblock reveal"><div class="k">Frameworks</div><div class="list"><span>PyTorch</span><span>TensorFlow</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>XGBoost</span><span>Transformers</span></div></div>
+    <div class="skblock reveal"><div class="k">Engineering</div><div class="list"><span>REST APIs</span><span>FastAPI</span><span>Flask</span><span>Docker</span><span>Git</span><span>CI/CD</span><span>Streamlit</span></div></div>
+    <div class="skblock reveal"><div class="k">Cloud & Data</div><div class="list"><span>AWS</span><span>Azure</span><span>Snowflake</span><span>Databricks</span><span>PostgreSQL</span><span>MongoDB</span></div></div>
+  </div>
+</section>
+
+</div>
+
+<div class="wrap">
+<section id="contact" class="contact">
+  <div class="big reveal">Let's build<br>something <span class="magnet" id="mag"><a href="mailto:sravankumarv635@gmail.com">together.</a></span></div>
+  <div class="clinks reveal">
+    <a href="mailto:sravankumarv635@gmail.com">EMAIL</a>
+    <a href="https://www.linkedin.com/in/sravan-patel" target="_blank" rel="noopener">LINKEDIN</a>
+    <a href="tel:+14022166535">+1 402 216 6535</a>
+  </div>
+</section>
+</div>
+
+<footer>© 2026 Sravan Kumar Veerannagari · Built &amp; deployed on Vercel</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ---- custom cursor ----
+const cur=document.querySelector('.cursor'),dot=document.querySelector('.cursor-dot');
+let cx=0,cy=0,tx=0,ty=0;
+window.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;dot.style.left=tx+'px';dot.style.top=ty+'px';});
+(function loop(){cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,.chip,.morph,.skblock .list span').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('grow'));el.addEventListener('mouseleave',()=>cur.classList.remove('grow'));});
+
+// ---- scroll progress bar ----
+const prog=document.getElementById('progress');
+window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(scrollY/h*100)+'%';});
+
+// ---- typing rotator ----
+(function(){
+  const el=document.getElementById('cw');
+  const words=['RAG systems','agentic LLM workflows','fine-tuned models','computer vision','production AI'];
+  let w=0,c=0,del=false;
+  function tick(){
+    const word=words[w];
+    el.textContent=word.slice(0,c);
+    if(!del){c++;if(c>word.length){del=true;setTimeout(tick,1100);return;}}
+    else{c--;if(c<0){del=false;w=(w+1)%words.length;c=0;}}
+    setTimeout(tick,del?45:90);
+  }
+  tick();
+})();
+
+// ---- count-up stats ----
+const statsEl=document.getElementById('stats');
+const sObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.n').forEach(n=>{
+  const to=+n.dataset.to,suf=n.dataset.suffix||'';let v=0;const step=Math.max(1,to/60);
+  const t=setInterval(()=>{v+=step;if(v>=to){v=to;clearInterval(t);}n.textContent=Math.round(v)+suf;},18);
+});sObs.unobserve(e.target);}});},{threshold:.4});
+sObs.observe(statsEl);
+
+// ---- 3D tilt on project cards ----
+document.querySelectorAll('.card').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();
+    const mx=e.clientX-r.left,my=e.clientY-r.top;
+    c.style.setProperty('--mx',mx+'px');c.style.setProperty('--my',my+'px');
+    const rx=((my/r.height)-.5)*-10,ry=((mx/r.width)-.5)*10;
+    c.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;});
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+
+// ---- magnetic contact link ----
+(function(){const m=document.getElementById('mag');
+  m.addEventListener('mousemove',e=>{const r=m.getBoundingClientRect();
+    m.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.3}px)`;});
+  m.addEventListener('mouseleave',()=>m.style.transform='');
+})();
+
+// ---- scroll reveal ----
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ---- Three.js interactive scene ----
+(function(){
+  const canvas=document.getElementById('scene');
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(50,1,0.1,100);camera.position.z=6;
+  const group=new THREE.Group();scene.add(group);
+
+  // morphable geometries
+  const shapes=[
+    ()=>new THREE.IcosahedronGeometry(1.8,1),
+    ()=>new THREE.TorusKnotGeometry(1.2,.38,120,16),
+    ()=>new THREE.OctahedronGeometry(1.9,2),
+    ()=>new THREE.DodecahedronGeometry(1.8,0)
+  ];
+  let si=0;
+  let lines,core,pts;
+  function build(i){
+    if(lines){group.remove(lines,core,pts);lines.geometry.dispose();core.geometry.dispose();pts.geometry.dispose();}
+    const g=shapes[i]();
+    lines=new THREE.LineSegments(new THREE.WireframeGeometry(g),new THREE.LineBasicMaterial({color:0x5ef2c9,transparent:true,opacity:.6}));
+    core=new THREE.Mesh(g,new THREE.MeshBasicMaterial({color:0x0b1512,transparent:true,opacity:.9}));core.scale.setScalar(.985);
+    pts=new THREE.Points(new THREE.BufferGeometry().setAttribute('position',g.getAttribute('position').clone()),new THREE.PointsMaterial({color:0xc8fff0,size:.07}));
+    group.add(lines,core,pts);
+    group.scale.setScalar(.2);// pop-in
+  }
+  build(0);
+  function morph(){si=(si+1)%shapes.length;build(si);}
+  document.getElementById('morph').addEventListener('click',morph);
+
+  // particle field
+  const N=440,p=new Float32Array(N*3);
+  for(let i=0;i<N;i++){const r=4+Math.random()*8,a=Math.random()*Math.PI*2,b=Math.acos(2*Math.random()-1);
+    p[i*3]=r*Math.sin(b)*Math.cos(a);p[i*3+1]=r*Math.sin(b)*Math.sin(a);p[i*3+2]=r*Math.cos(b);}
+  const field=new THREE.Points(new THREE.BufferGeometry().setAttribute('position',new THREE.BufferAttribute(p,3)),
+    new THREE.PointsMaterial({color:0xa78bff,size:.045,transparent:true,opacity:.7}));
+  scene.add(field);
+
+  function size(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;
+    group.position.x=w>768?2.2:0;group.position.y=w>768?.2:1.4;camera.updateProjectionMatrix();}
+  addEventListener('resize',size);size();
+
+  // drag + click to morph + reactive cursor
+  let dragging=false,moved=false,px=0,py=0,vx=0,vy=0,rx=-.3,ry=.5;
+  function down(x,y){dragging=true;moved=false;px=x;py=y;cur.classList.add('grab');}
+  function move(x,y){if(!dragging)return;if(Math.abs(x-px)+Math.abs(y-py)>4)moved=true;vy=(x-px)*.005;vx=(y-py)*.005;ry+=vy;rx+=vx;px=x;py=y;}
+  function upClick(){if(dragging&&!moved)morph();dragging=false;cur.classList.remove('grab');}
+  addEventListener('mousedown',e=>down(e.clientX,e.clientY));
+  addEventListener('mousemove',e=>move(e.clientX,e.clientY));
+  addEventListener('mouseup',upClick);
+  canvas.addEventListener('touchstart',e=>down(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
+  addEventListener('touchmove',e=>{if(dragging)move(e.touches[0].clientX,e.touches[0].clientY);},{passive:true});
+  addEventListener('touchend',upClick);
+
+  let my=0,mxg=0;addEventListener('mousemove',e=>{my=(e.clientY/innerHeight-.5);mxg=(e.clientX/innerWidth-.5);});
+  let scY=0;addEventListener('scroll',()=>scY=scrollY);
+
+  function animate(){requestAnimationFrame(animate);
+    if(!dragging){vy*=.95;vx*=.95;ry+=vy+0.0016;rx+=vx;rx+=((-my*.4)-rx)*0.02;}
+    group.rotation.x=rx;group.rotation.y=ry;
+    group.scale.x+=((1)-group.scale.x)*0.12;group.scale.y=group.scale.x;group.scale.z=group.scale.x;
+    const t=Math.min(scY/1400,1);group.position.y=(innerWidth>768?.2:1.4)-t*1.2;
+    field.rotation.y+=0.0006+mxg*0.002;field.rotation.x+=0.0003;
+    lines.material.opacity=.5+Math.sin(Date.now()*.001)*.12;
+    renderer.render(scene,camera);
+  }
+  animate();
+})();
+</script>
+</body>
+</html>
